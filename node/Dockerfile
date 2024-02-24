@@ -2,7 +2,9 @@ FROM node:15
 
 WORKDIR /usr/src/app
 
-RUN npm install express && npm install mysql
+COPY package*.json ./
+
+RUN npm install
 
 COPY . .
 
