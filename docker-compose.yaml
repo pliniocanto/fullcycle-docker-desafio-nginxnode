@@ -12,6 +12,9 @@ services:
       - "80:80"
     networks:
       - node-network
+    depends_on:
+      db:
+        condition: service_healthy
       
   app:
     build: 
@@ -45,7 +48,7 @@ services:
       test: ["CMD", "mysqladmin", "ping", "-h", "db", "-u", "root", "-p$$MYSQL_ROOT_PASSWORD"]
       interval: 5s
       timeout: 10s
-      retries: 3
+      retries: 9
     
 
 networks:
