@@ -9,7 +9,7 @@ const config = {
   database: 'nodedb'
 }
 
-const mysql = require('mysql');
+const mysql = require('mysql2');
 
 const connection = mysql.createConnection(config);
 
@@ -33,7 +33,7 @@ app.get('/', (req, res) => {
   });
 
   connection.end();
-  console.log('Lista de usuários');
+  console.log('Lista de people');
 });
 
 app.listen(port, () => {

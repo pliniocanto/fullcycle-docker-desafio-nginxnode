@@ -12,24 +12,30 @@ services:
       - "80:80"
     networks:
       - node-network
+    depends_on:
+      db:
+        condition: service_healthy
       
   app:
     build: 
       context: ./node
       dockerfile: Dockerfile
     container_name: app
-    restart: always
     volumes:
       - ./node:/usr/src/app
     networks:
       - node-network
+    entrypoint: sh -c "npm install && node index.js"
+    ports:
+      - "3000:3000"
     depends_on:
-      - db
+      db:
+        condition: service_healthy
 
   db:
-    platform: linux/x86_64
-    image: mysql:5.7
-    restart: always
+    build: 
+      context: ./db
+      dockerfile: Dockerfile
     container_name: db
     tty: true
     volumes:
@@ -40,6 +46,12 @@ services:
       - MYSQL_DATABASE=nodedb
     networks:
       - node-network
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "db", "-u", "root", "-p$$MYSQL_ROOT_PASSWORD"]
+      interval: 5s
+      timeout: 10s
+      retries: 3
+    
 
 networks:
   node-network:
