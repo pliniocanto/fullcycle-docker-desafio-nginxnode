@@ -19,8 +19,6 @@ services:
       dockerfile: Dockerfile
     container_name: app
     restart: always
-    ports:
-      - "3000:3000"
     volumes:
       - ./node:/usr/src/app
     networks:
