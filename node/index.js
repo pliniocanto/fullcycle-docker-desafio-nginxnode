@@ -29,7 +29,9 @@ app.get('/', (req, res) => {
 
     console.log("Resultado: " + JSON.stringify(result));
     const htmlTable = generateHtmlTable(result);
-    res.send(`<h1>Full Cycle!!!</h1><br>${htmlTable}`);
+    res.send(`<h1>Full Cycle Rocks!</h1>
+    -Lista de nomes cadastrada no banco de dados.
+    <br>${htmlTable}`);
   });
 
   connection.end();
