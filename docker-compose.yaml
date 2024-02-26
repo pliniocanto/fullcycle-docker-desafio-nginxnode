@@ -37,7 +37,7 @@ services:
     container_name: db
     tty: true
     volumes:
-      - ./db/data:/var/lib/mysql
+      - mysql-data:/var/lib/mysql
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     environment:
       - MYSQL_ROOT_PASSWORD=root
@@ -49,6 +49,10 @@ services:
       interval: 5s
       timeout: 10s
       retries: 9
+
+volumes:
+  mysql-data:
+    driver: local
     
 
 networks:
